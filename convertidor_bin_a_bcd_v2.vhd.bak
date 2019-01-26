@@ -1,0 +1,74 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+entity bin2bcd is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           inicio : in  STD_LOGIC;
+           num_bin : in  STD_LOGIC_VECTOR (12 downto 0);
+           und : out  STD_LOGIC_VECTOR (3 downto 0);
+           dec : out  STD_LOGIC_VECTOR (3 downto 0);
+           cen : out  STD_LOGIC_VECTOR (3 downto 0);
+           mil : out  STD_LOGIC_VECTOR (3 downto 0);
+           fin : out  STD_LOGIC);
+end bin2bcd;
+
+architecture Behavioral of bin2bcd is
+
+begin
+
+P1: process(reset,clk)   
+variable a: std_logic_vector(12 downto 0);
+variable b: std_logic_vector(15 downto 0);
+begin
+
+if reset = '1' then   -- si reset 1 pongo a cero las variables
+      
+      a := (others => '0');
+      b := (others => '0');
+      
+elsif rising_edge(clk) then   
+   
+if inicio = '1' then
+      a := num_bin;   -- a "a" le asgino mi numero binario a convertir (proviene del test bench)
+      
+      for i in 0 to 12 loop
+      
+      b := b(14 downto 0) & a(12);
+      a := a(11 downto 0) & '0';
+      --b := b(2 downto 1) & '0';   
+      
+-- voy desplazando y comprobando que si es mayor que 5 sumo 3
+
+      if (i<12 and b(3 downto 0) > "0100" ) then
+      b(3 downto 0) := b(3 downto 0) or "0011";
+      end if;
+      
+      if (i<12 and b(7 downto 4) > "0100") then   
+      b(7 downto 4) := b(7 downto 4) or "0011";
+      end if;
+      
+      if (i<12 and b(11 downto 8) > "0100") then      
+      b(11 downto 8):= b(11 downto 8) or "0011";
+      end if;
+      
+      if (b(15 downto 12) > "0100") then
+      b(15 downto 12) := b(15 downto 12) or "0011";
+      end if;
+      
+      
+      end loop;         
+      
+
+      
+
+      
+end if;
+         und <= b (3 downto 0);
+         dec <= b (7 downto 4);
+         cen <= b (11 downto 8);
+         mil <= b (15 downto 12);
+end if;
+end process ;
+end Behavioral;

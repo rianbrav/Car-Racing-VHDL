@@ -1,0 +1,30 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity mux_alta_frecuencia is
+port (
+		i0 : in std_logic;
+      i1 : in std_logic;
+		i2 : in std_logic;
+		i3 : in std_logic;
+		i4 : in std_logic;
+      i5 : in std_logic;
+		i6 : in std_logic;
+		i7 : in std_logic;
+     sel : in std_logic_vector(2 downto 0);
+     frecout : out std_logic);
+end mux_alta_frecuencia;
+
+architecture Behavioral of mux_alta_frecuencia is
+begin
+	with sel select
+		frecout <= i0 when "0000",
+					  i1 when "0001",
+				     i2 when "0010",
+				     i3 when "0011",
+					  i4 when "0100",
+					  i5 when "0101",
+				     i6 when "0110",
+				     i7 when "0111";
+
+end Behavioral;
