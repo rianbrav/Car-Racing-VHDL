@@ -1,0 +1,16 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity sum is
+  port(a,b: in std_logic_vector(3 downto 0);
+        salida: out std_logic_vector(3 downto 0));
+end sum;
+
+architecture synth of sum is
+begin
+  process(a,b) is
+  begin
+    salida <= std_logic_vector(unsigned(a) - unsigned(b)));
+  end process;
+end synth;

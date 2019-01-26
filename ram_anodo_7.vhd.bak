@@ -1,0 +1,38 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity ram_anodo_7 is
+	port(data: in std_logic_vector(7 downto 0);
+	add: in std_logic_vector(3 downto 0);
+	modo: in std_logic;
+	q: out std_logic_vector(7 downto 0));
+end ram_anodo_7;
+architecture sol of ram_anodo_7 is
+begin
+		process(modo,add)
+			begin
+				if modo = '1' then
+					case add is
+					   when "0000000" => q<="00000000";
+						when "0000001" => q<="00000000";----cuadro1
+						when "0000010" => q<=;
+						when "0000011" => q<=;----cuadro1
+						when "0000100" => q<=;----cuadro2
+						when "0000101" => q<=;
+						when "0000110" => q<=;
+						when "0000111" => q<=;----cuadro2
+						when "0001000" => q<=;----cuadro3
+						when "0001001" => q<=;
+						when "0001010" => q<=;
+						when "0001011" => q<=;
+						when "0001100" => q<=;---cuadro3
+						when "0001101" => q<=;---cuadro4
+						when "0001110" => q<=;
+						when "0001111" => q<=;
+					end case;
+				else
+					q <= "00000000";
+				end if;
+	end process;
+end sol;
