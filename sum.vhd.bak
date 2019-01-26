@@ -1,0 +1,19 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+ use IEEE.NUMERIC_STD.all;
+
+ENTITY sum IS
+	PORT (a : IN std_logic_vector(10 DOWNTO 0); 
+			enable: IN std_logic);
+         salida : OUT std_logic_vector(10 DOWNTO 0));
+END sum;
+
+ARCHITECTURE synth OF sum IS
+BEGIN
+
+PROCESS (a, b, enable) IS
+BEGIN
+   if enable = '1' then salida <= std_logic_vector(UNSIGNED(a) + "00000000101");
+	else salida <= a;
+	END PROCESS;
+END synth;
